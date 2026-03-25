@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS 5CIA_IrrigazioneLaravel;
-CREATE DATABASE 5CIA_IrrigazioneLaravel;
+DROP DATABASE IF EXISTS 5cia_IrrigazioneLaravel;
+CREATE DATABASE 5cia_IrrigazioneLaravel;
 
-USE 5CIA_IrrigazioneLaravel;
+USE 5cia_IrrigazioneLaravel;
