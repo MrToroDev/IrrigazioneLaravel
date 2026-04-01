@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 enum RuoloUtente: String {
     case Admin = "Admin";
@@ -32,6 +33,11 @@ class Utente extends Model
     }
 
     public function getRuolo(): RuoloUtente {
-        return $this->attributes['Ruolo'];
+        return RuoloUtente::from($this->attributes['Ruolo']);
+    }
+
+    public function orti(): HasMany
+    {
+        return $this->hasMany(Orto::class, "IdOrto", "IdUtente");
     }
 }
