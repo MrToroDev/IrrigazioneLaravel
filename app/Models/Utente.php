@@ -40,4 +40,9 @@ class Utente extends Model
     {
         return $this->hasMany(Orto::class, "IdOrto", "IdUtente");
     }
+
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class, "IdAlert", "IdUtente");
+    }
 }

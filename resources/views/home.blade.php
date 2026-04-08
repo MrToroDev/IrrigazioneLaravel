@@ -25,12 +25,13 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard utente</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
+                    
+                    @session('id_user')
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Dashboard utente</a>
+                        </li>
+                    @endsession
+                    
                 </ul>
             </div>
         </div>
@@ -39,7 +40,6 @@
     <div>
         
     </div>
-    
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
