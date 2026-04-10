@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Orti(
 DROP TABLE IF EXISTS Sensori;
 CREATE TABLE IF NOT EXISTS Sensori(
     IdSensore INT NOT NULL AUTO_INCREMENT,
-    TipoSensore ENUM('Temperatura', 'Umidita', 'UV') NOT NULL,
+    TipoSensore ENUM('Temperatura', 'Umidita', 'UV', 'PH', 'Luce') NOT NULL,
     PosizioneGPS VARCHAR(500) NOT NULL,
     IdOrto INT NOT NULL,
     PRIMARY KEY(IdSensore),
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Sensori(
 DROP TABLE IF EXISTS Misurazioni;
 CREATE TABLE IF NOT EXISTS Misurazioni(
     IdMisurazione INT NOT NULL AUTO_INCREMENT,
-    Valore VARCHAR(200) NOT NULL,
+    Valore FLOAT NOT NULL,
     DataOraMisurazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     IdSensore INT NOT NULL,
     PRIMARY KEY(IdMisurazione),
@@ -83,17 +83,17 @@ INSERT INTO Orti (Nome, PosizioneGPS, Tipo, IdUtente) VALUES
 
 INSERT INTO Sensori (TipoSensore, PosizioneGPS, IdOrto) VALUES
 ('Temperatura', '43.4632, 11.8797', 1),
-('Umidità', '43.4621, 11.8806', 2),
-('PH Terreno', '43.4641, 11.8811', 3),
+('Umidita', '43.4621, 11.8806', 2),
+('PH', '43.4641, 11.8811', 3),
 ('Luce', '43.4651, 11.8821', 4),
-('Umidità Suolo', '43.4636, 11.8801', 5);
+('Umidita', '43.4636, 11.8801', 5);
 
-INSERT INTO Misurazioni (Valore, TipoDato, IdSensore) VALUES
-('25°C', 'Temperatura', 1),
-('60%', 'Umidità', 2),
-('6.5', 'PH', 3),
-('800 lux', 'Luce', 4),
-('45%', 'Umidità Suolo', 5);
+INSERT INTO Misurazioni (Valore, IdSensore) VALUES
+(25, 1),
+(60, 2),
+(6.5, 3),
+(800, 4),
+(45, 5);
 
 INSERT INTO Irrigazioni (Durata, LitriAcquaConsumata, IdOrto) VALUES
 ('0h 30\' 00\'\'', '50L', 1),

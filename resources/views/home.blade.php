@@ -26,11 +26,18 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     
-                    @session('id_user')
+                    @if(session()->has('id_user'))
                         <li class="nav-item">
                             <a class="nav-link" href="#">Dashboard utente</a>
                         </li>
-                    @endsession
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Logout</a>
+                        </li>            
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{  }}">Login</a>
+                        </li>
+                    @endif
                     
                 </ul>
             </div>
