@@ -93,7 +93,7 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
+                            <form method="POST" action="{{ route('login.verify') }}" class="needs-validation" novalidate>
                                 @csrf
 
                                 {{-- Campo Email --}}

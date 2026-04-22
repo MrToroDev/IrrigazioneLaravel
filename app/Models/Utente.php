@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 enum RuoloUtente: String {
     case Admin = "Admin";
     case Utente = "Utente";
 };
 
-class Utente extends Model
+class Utente extends Authenticatable
 {
     protected $table = "Utenti";
 
