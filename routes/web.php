@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {    
     Route::get('/login', function() {
         return view('login');
-    });
+    })->name("login");
     
     Route::post('/login/verify', LoginController::class)->name("login.verify"); 
 });

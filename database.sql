@@ -9,7 +9,7 @@ CREATE TABLE Utenti(
     Nome VARCHAR(40) NOT NULL,
     Cognome VARCHAR(40) NOT NULL,
     Email VARCHAR(20) NOT NULL,
-    Pword VARCHAR(20) NOT NULL,
+    Pword VARCHAR(255) NOT NULL,
     Ruolo ENUM('Admin', 'Utente'),
     PRIMARY KEY(IdUtente)
 );
@@ -68,7 +68,8 @@ CREATE TABLE IF NOT EXISTS Alert(
 );
 
 INSERT INTO Utenti (Nome, Cognome, Email, Pword, Ruolo) VALUES
-('Mario', 'Rossi', 'mario@email.it', 'pass123', 'Admin'),
+('Mario', 'Rossi', 'mario@email.it', 'pass123', 'Admin'), -- pass123
+
 ('Luca', 'Bianchi', 'luca@email.it', 'pass456', 'Utente'),
 ('Giulia', 'Verdi', 'giulia@email.it', 'pass789', 'Utente'),
 ('Anna', 'Neri', 'anna@email.it', 'pass321', 'Utente'),

@@ -18,6 +18,8 @@ class Utente extends Authenticatable
 
     protected $fillable = ["Nome", "Cognome", "Email", "Pword", "Ruolo"];
 
+    protected $hidden = ["Pword", "remember_token"];
+
     public function getNome(): String {
         return $this->attributes["Nome"];
     }
