@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Data;
+use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreOrtoRequest;
-use App\Http\Requests\UpdateOrtoRequest;
-use App\Models\Orto;
+use Illuminate\Http\Request;
 
-class OrtoController extends Controller
+class AlertController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view("user.data.alert");
     }
 
     /**

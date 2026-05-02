@@ -16,6 +16,7 @@ enum TipoSensore: String
 class Sensore extends Model
 {
     protected $table = "Sensori";
+    protected $primaryKey = 'IdSensore';
 
     protected $fillable = ["TipoSensore", "PosizioneGPS"];
 

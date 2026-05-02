@@ -15,6 +15,7 @@ enum TipoAlert: String
 class Alert extends Model
 {
     protected $table = "Alert";
+    protected $primaryKey = 'IdAlert';
 
     protected $fillable = ["Tipo", "Descrizione", "DataOraAlert"];
 

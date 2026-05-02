@@ -15,10 +15,15 @@ enum RuoloUtente: String {
 class Utente extends Authenticatable
 {
     protected $table = "Utenti";
+    protected $primaryKey = 'IdUtente';
+    protected $authPasswordName = 'Pword';
 
     protected $fillable = ["Nome", "Cognome", "Email", "Pword", "Ruolo"];
 
     protected $hidden = ["Pword", "remember_token"];
+
+    
+
 
     public function getNome(): String {
         return $this->attributes["Nome"];
@@ -49,4 +54,6 @@ class Utente extends Authenticatable
     {
         return $this->hasMany(Alert::class, "IdAlert", "IdUtente");
     }
+
+    
 }

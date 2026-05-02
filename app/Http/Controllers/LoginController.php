@@ -14,22 +14,35 @@ class LoginController extends Controller
     {
         $credentials = $request->validate([
             'Email' => ['required', 'email'],
-            'Pword' => ['required']
+            'password' => ['required']
         ]);
 
         // $credentials['Pword'] = Hash::make($credentials['Pword']);
-
-        // return var_dump($credentials);
-
-        if (Auth::attempt($credentials)) {
+        
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
         
-            return redirect()->intended('dashboard');
+            return redirect()->intended(route('dashboard'));
         }
-
+        
         return back()->withErrors([
             'email' => 'Invalid email',
             'password' => 'Invalid password',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->intended(route("home"));
+    }
+
+    public function show()
+    {
+        return view('login');
     }
 }

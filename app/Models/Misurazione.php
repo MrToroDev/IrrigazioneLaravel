@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Misurazione extends Model
 {
     protected $table = "Misurazioni";
+    protected $primaryKey = 'IdMisurazione';
 
     protected $fillable = ["Valore", "DataOraMisurazione", "TipoDato"];
 

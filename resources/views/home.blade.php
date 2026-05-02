@@ -21,23 +21,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    
-                    @if(session()->has('id_user'))
+                <ul class="navbar-nav">        
+                    @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dashboard utente</a>
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>            
-                    @else
+                            <a class="nav-link" href="{{ route("logout") }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endauth
+                    @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("login") }}">Login</a>
                         </li>
-                    @endif
+                    @endguest
                     
                 </ul>
             </div>

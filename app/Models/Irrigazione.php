@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Irrigazione extends Model
 {
     protected $table = "Irrigazioni";
+    protected $primaryKey = 'IdIrrigazione';
 
     protected $fillable = ["Durata", "LitriAcquaConsumata", "DataOraIrrigazione"];
 

@@ -67,9 +67,9 @@
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-header bg-primary text-white text-center py-4 border-0 rounded-top">
                             <h3 class="mb-0 fw-bold">
-                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                                <i class="fas fa-sign-in-alt me-2"></i>Register
                             </h3>
-                            <p class="mb-0 mt-2 small opacity-75">Insert your credentials to access</p>
+                            <p class="mb-0 mt-2 small opacity-75">Insert your credentials to register an account</p>
                         </div>
 
                         <div class="card-body p-4 p-md-5">
@@ -93,13 +93,33 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('login.verify') }}" class="needs-validation" novalidate>
+                            <form method="POST" action="{{ route('register.verify') }}" class="needs-validation" novalidate>
                                 @csrf
 
+                                {{-- Campo Nome --}}
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control"
+                                        id="name" name="name" placeholder="..."
+                                        value="{{ old('name') }}" required autofocus>
+                                    <label for="name">
+                                        <i class="fas fa-envelope me-2 text-muted"></i>Name
+                                    </label>
+                                </div>
+
+                                {{-- Campo Cognome --}}
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control"
+                                        id="surname" name="surname" placeholder="..."
+                                        value="{{ old('surname') }}" required autofocus>
+                                    <label for="surname">
+                                        <i class="fas fa-envelope me-2 text-muted"></i>Surname
+                                    </label>
+                                </div>
+                                
                                 {{-- Campo Email --}}
                                 <div class="form-floating mb-4">
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        id="email" name="Email" placeholder="nome@esempio.com"
+                                        id="email" name="email" placeholder="nome@esempio.com"
                                         value="{{ old('email') }}" required autofocus autocomplete="email">
                                     <label for="email">
                                         <i class="fas fa-envelope me-2 text-muted"></i>Email address
@@ -114,7 +134,7 @@
                                 {{-- Campo Password --}}
                                 <div class="form-floating mb-4 position-relative">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        id="password" name="password" placeholder="Password" required
+                                        id="password" name="Pword" placeholder="Password" required
                                         autocomplete="current-password">
                                     <label for="password">
                                         <i class="fas fa-lock me-2 text-muted"></i>Password
@@ -131,40 +151,22 @@
                                     @enderror
                                 </div>
 
-                                {{-- Ricordami --}}
-                                <div class="form-check mb-4">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label user-select-none" for="remember">
-                                        <i class="fas fa-clock me-1"></i>Remember me
-                                    </label>
-                                </div>
-
                                 {{-- Pulsante Login --}}
                                 <div class="d-grid gap-2 mb-3">
                                     <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                        <i class="fas fa-sign-in-alt me-2"></i>Register
                                     </button>
                                 </div>
-
-                                {{-- Link Password Dimenticata --}}
-                                @if (Route::has('password.request'))
-                                    <div class="text-center">
-                                        <a href="{{ route('password.request') }}" class="text-decoration-none">
-                                            <i class="fas fa-key me-1"></i>Password forgotten?
-                                        </a>
-                                    </div>
-                                @endif
                             </form>
                         </div>
 
                         {{-- Footer Card --}}
-                        @if (Route::has('register'))
+                        @if (Route::has('login'))
                             <div class="card-footer bg-light text-center py-3 border-0 rounded-bottom">
                                 <p class="mb-0 text-muted">
-                                    Don't you have an account?
-                                    <a href="{{ route('register') }}" class="fw-bold text-decoration-none">
-                                        <i class="fas fa-user-plus me-1"></i>Register now!
+                                    Do you already have an account?
+                                    <a href="{{ route('login') }}" class="fw-bold text-decoration-none">
+                                        <i class="fas fa-user-plus me-1"></i>Login now!
                                     </a>
                                 </p>
                             </div>

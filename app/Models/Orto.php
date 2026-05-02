@@ -14,6 +14,7 @@ enum TipoOrto: String {
 class Orto extends Model
 {
     protected $table = "Orti";
+    protected $primaryKey = 'IdOrto';
 
     protected $fillable = ["Nome", "PosizioneGPS", "Tipo"];
 

@@ -11,6 +11,10 @@ CREATE TABLE Utenti(
     Email VARCHAR(20) NOT NULL,
     Pword VARCHAR(255) NOT NULL,
     Ruolo ENUM('Admin', 'Utente'),
+
+    updated_at DATETIME,
+    created_at DATETIME,
+
     PRIMARY KEY(IdUtente)
 );
 
@@ -48,7 +52,6 @@ CREATE TABLE IF NOT EXISTS Misurazioni(
 DROP TABLE IF EXISTS Irrigazioni;
 CREATE TABLE IF NOT EXISTS Irrigazioni(
     IdIrrigazione INT NOT NULL AUTO_INCREMENT,
-    Durata INT NOT NULL,
     LitriAcquaConsumata INT NOT NULL,
     DataOraIrrigazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     IdOrto INT NOT NULL,
@@ -62,50 +65,32 @@ CREATE TABLE IF NOT EXISTS Alert(
     Tipo ENUM('INFO', 'WARNING', 'ERROR') NOT NULL,
     Descrizione VARCHAR(200) NOT NULL,
     DataOraAlert TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Visualizzato DATETIME,
     IdUtente INT NOT NULL,
     PRIMARY KEY(IdAlert),
     FOREIGN KEY(IdUtente) REFERENCES Utenti(IdUtente)
 );
 
 INSERT INTO Utenti (Nome, Cognome, Email, Pword, Ruolo) VALUES
-('Mario', 'Rossi', 'mario@email.it', 'pass123', 'Admin'), -- pass123
-
-('Luca', 'Bianchi', 'luca@email.it', 'pass456', 'Utente'),
-('Giulia', 'Verdi', 'giulia@email.it', 'pass789', 'Utente'),
-('Anna', 'Neri', 'anna@email.it', 'pass321', 'Utente'),
-('Paolo', 'Gialli', 'paolo@email.it', 'pass654', 'Admin');
+('Mario', 'Rossi', 'mario@email.it', '$2y$12$r/Dq2H/k3exYzODQw3LXAOQpit4JxW/nBr67rbKXu4GiCZd9qjSqe', 'Admin'), -- pass123
+('Luca', 'Bianchi', 'luca@email.it', '$2a$12$cx4suO65y4YYnmd5.Qe3A.AJz2fed2lqIcVRLhL3484Y1aswJa1G.', 'Utente'); -- pass456
 
 INSERT INTO Orti (Nome, PosizioneGPS, Tipo, IdUtente) VALUES
 ('Orto Nord', '43.4631, 11.8796', 'Orto', 1),
-('Serra Sud', '43.4620, 11.8805', 'Serra', 2),
-('Orto Est', '43.4640, 11.8810', 'Orto', 3),
-('Serra Ovest', '43.4650, 11.8820', 'Serra', 4),
-('Orto Centrale', '43.4635, 11.8800', 'Orto', 5);
+('Serra Sud', '43.4620, 11.8805', 'Serra', 2);
 
 INSERT INTO Sensori (TipoSensore, PosizioneGPS, IdOrto) VALUES
 ('Temperatura', '43.4632, 11.8797', 1),
-('Umidita', '43.4621, 11.8806', 2),
-('PH', '43.4641, 11.8811', 3),
-('Luce', '43.4651, 11.8821', 4),
-('Umidita', '43.4636, 11.8801', 5);
+('Umidita', '43.4621, 11.8806', 2);
 
 INSERT INTO Misurazioni (Valore, IdSensore) VALUES
 (25, 1),
-(60, 2),
-(6.5, 3),
-(800, 4),
-(45, 5);
+(60, 2);
 
-INSERT INTO Irrigazioni (Durata, LitriAcquaConsumata, IdOrto) VALUES
-('0h 30\' 00\'\'', '50L', 1),
-('0h 45\' 00\'\'', '70L', 2),
-('0h 20\' 00\'\'', '30L', 3),
-('1h 10\' 30\'\'', '90L', 4),
-('0h 55\' 40\'\'', '65L', 5);
+INSERT INTO Irrigazioni (LitriAcquaConsumata, IdOrto) VALUES
+('50L', 1),
+('70L', 2);
 
 INSERT INTO Alert (Tipo, Descrizione, IdUtente) VALUES
 ('Temperatura Alta', 'Temperatura oltre soglia nell\'orto', 1),
-('Umidità Bassa', 'Livello umidità troppo basso', 2),
-('Irrigazione Necessaria', 'Il terreno è troppo secco', 3),
-('Sensore Offline', 'Il sensore non risponde', 4),
-('Acqua Insufficiente', 'Serbatoio quasi vuoto', 5);
+('Umidità Bassa', 'Livello umidità troppo basso', 2);
