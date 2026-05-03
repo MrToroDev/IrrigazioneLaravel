@@ -30,11 +30,11 @@ class Sensore extends Model
 
     public function orto(): BelongsTo
     {
-        return $this->belongsTo(Orto::class, "IdOrto", "IdSensore");
+        return $this->belongsTo(Orto::class, "IdOrto");
     }
 
     public function misurazioni(): HasMany
     {
-        return $this->hasMany(Misurazione::class, "IdMisurazione", "IdSensore");
+        return $this->hasMany(Misurazione::class, "IdMisurazione");
     }
 }

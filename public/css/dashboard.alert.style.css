@@ -1,0 +1,7 @@
+.alert_description {
+    display: inline-block;
+    width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

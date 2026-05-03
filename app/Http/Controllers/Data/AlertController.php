@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 
+use App\Models\Utente;
+use App\Models\Alert;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlertController extends Controller
 {
@@ -12,54 +16,30 @@ class AlertController extends Controller
      */
     public function index()
     {
-        return view("user.data.alert");
+        /** @var Utente */
+        $alerts = Auth::user()->alerts()->orderBy("DataOraAlert", "desc")->get();
+
+        return view("user.dashboard.alert", compact("alerts"));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Destroy the specified resource.
      */
-    public function create()
+    public function destroy(Alert $alert)
     {
-        //
-    }
+        $alert->deleteOrFail();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOrtoRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Orto $orto)
-    {
-        //
+        return redirect()->back();
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Orto $orto)
+    public function update(Alert $alert)
     {
-        //
-    }
+        $alert->Visualizzato = Carbon::now()->toDateTimeString();
+        $alert->saveOrFail();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOrtoRequest $request, Orto $orto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Orto $orto)
-    {
-        //
+        return redirect()->back();
     }
 }

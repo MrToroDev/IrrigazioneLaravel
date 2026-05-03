@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -9,21 +10,22 @@ enum TipoAlert: String
 {
     case INFO = "INFO";
     case WARNING = "WARNING";
-    case ERROR = "ERROR";
+    case DANGER = "DANGER";
 }
 
 class Alert extends Model
 {
     protected $table = "Alert";
     protected $primaryKey = 'IdAlert';
+    public $timestamps = false;
 
-    protected $fillable = ["Tipo", "Descrizione", "DataOraAlert"];
+    protected $fillable = ["Tipo", "Descrizione", "DataOraAlert", "Visualizzato"];
 
     public function getTipo(): TipoAlert {
         return TipoAlert::from($this->attributes["Tipo"]);
     }
     
-    public function getDescrizione(): Int {
+    public function getDescrizione(): String {
         return $this->attributes["Descrizione"];
     }
     
@@ -32,8 +34,15 @@ class Alert extends Model
         return $this->attributes["DataOraAlert"];
     }
 
+    /* format: YYYY-MM-DD hh:mm:ss */
+    public function getDataVisualizzazione(): String {
+        if (!isset($this->attributes["Visualizzato"])) return "new";
+        
+        return Carbon::parse($this->attributes["Visualizzato"])->toDateTimeString();
+    }
+
     public function utente(): BelongsTo
     {
-        return $this->belongsTo(Utente::class, "IdUtente", "IdAlert");
+        return $this->belongsTo(Utente::class, "IdUtente");
     }
 }

@@ -8,9 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    
+
     <link href="{{ asset("css/dashboard.style.css") }}" rel="stylesheet">
     
+    @yield("header")
+
 </head>
 <body>
     <div class="container-fluid">
@@ -18,9 +20,9 @@
             <!-- Sidebar Menu -->
             <div class="col-md-3 col-lg-2 sidebar">
                 <div class="profile-section text-center">
-                    <i class="bi bi-person-circle" style="font-size: 3rem; color: #0d6efd;"></i>
-                    <h6 class="mt-2 mb-0">{{ Auth::user()->Nome . " " . Auth::user()->Cognome }}</h6>
-                    <small class="text-muted">{{ Auth::user()->Ruolo }}</small>
+                    <i class="bi bi-person-circle" style="font-size: 3rem; color: rgba(30, 59, 47, 0.92);"></i>
+                    <h6 class="mt-2 mb-0">{{ Auth::user()->getNome() . " " . Auth::user()->getCognome() }}</h6>
+                    <small class="text-muted">{{ Auth::user()->getRuolo() }}</small>
                 </div>
                 
                 <ul class="nav flex-column">
@@ -37,7 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard.alert') ? 'active' : '' }}" href="{{ route('dashboard.alert') }}">
                             <i class="bi bi-envelope"></i> Alerts
-                            <span class="badge bg-danger float-end">3</span>
+                            @if (($numAlerts = Auth::user()->alerts()->whereNull("Visualizzato")->count()) > 0)
+                                <span class="badge bg-danger float-end">{{ $numAlerts }}</span>
+                            @endif
                         </a>
                     </li>
                     
@@ -70,18 +74,21 @@
             </div>
             
             <!-- Area Contenuto Principale -->
-            <div class="col-md-9 col-lg-10 content-area" id="content-area">
+            <div class="col-md-9 col-lg-10 content-area " id="content-area">
                 @sectionMissing("content")
+                
                 <div class="text-center">
                     <i class="bi bi-arrow-left-circle" style="font-size: 3rem; color: #dee2e6;"></i>
                     <p class="text-muted">
                         Click an option to view data!
                     </p>
                 </div>
-                @else
-                @yield("content");
-                @endif
                 
+                @else
+                
+                @yield("content")
+                
+                @endif
             </div>
         </div>
     </div>

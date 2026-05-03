@@ -31,8 +31,13 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
     
     Route::get('/user/dashboard/garden', [OrtoController::class, 'index'])->name('dashboard.orto');
+    Route::get('/user/dashboard/garden/{orto}', [OrtoController::class, 'show'])->name('dashboard.orto.id');
+
     Route::get('/user/dashboard/sensor', [SensoreController::class, 'index'])->name('dashboard.sensori');
+    
     Route::get('/user/dashboard/alert', [AlertController::class, 'index'])->name('dashboard.alert');
+    Route::put('/user/dashboard/alert/{alert}/update', [AlertController::class, 'update'])->name('dashboard.alert.update');
+    Route::delete('/user/dashboard/alert/{alert}/destroy', [AlertController::class, 'destroy'])->name('dashboard.alert.destroy');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name("logout");
 });

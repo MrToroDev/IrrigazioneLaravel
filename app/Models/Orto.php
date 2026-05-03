@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 enum TipoOrto: String {
-    case Orto = "Orto";
-    case Serra = "Serra";
+    case Garden = "Garden";
+    case Greenhouse = "Greenhouse";
 }
 
 class Orto extends Model
@@ -32,7 +32,7 @@ class Orto extends Model
 
     public function utente(): BelongsTo
     {
-        return $this->belongsTo(Utente::class, "IdUtente", "IdOrto");
+        return $this->belongsTo(Utente::class, "IdUtente");
     }
 
     public function sensori(): HasMany

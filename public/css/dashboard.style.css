@@ -1,5 +1,6 @@
-body {
-    overflow-x: hidden;
+html, body {
+    height: 100%;
+    overflow: hidden
 }
 
 .sidebar {
@@ -18,8 +19,8 @@ body {
 
 .sidebar .nav-link:hover {
     background-color: #e9ecef;
-    color: #0d6efd;
-    border-left: 4px solid #0d6efd;
+    color: rgba(30, 59, 47, 0.92);
+    border-left: 4px solid rgba(30, 59, 47, 0.92);
 }
 
 .sidebar .nav-link.active {
@@ -35,11 +36,13 @@ body {
 .content-area {
     min-height: 100vh;
     background-color: #ffffff;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     color: #6c757d;
     font-style: italic;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .header {

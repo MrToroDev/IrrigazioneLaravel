@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrtoRequest;
 use App\Http\Requests\UpdateOrtoRequest;
 use App\Models\Orto;
-
+use Illuminate\Support\Facades\Auth;
 
 class OrtoController extends Controller
 {
@@ -15,7 +15,17 @@ class OrtoController extends Controller
      */
     public function index()
     {
-        return view("user.data.garden");
+        $orti = Auth::user()->orti()->get();
+
+        return view("user.dashboard.garden", compact("orti"));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Orto $orto)
+    {
+        return view("user.dashboard.garden.index", compact("orto"));
     }
 
     /**
@@ -30,14 +40,6 @@ class OrtoController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreOrtoRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Orto $orto)
     {
         //
     }

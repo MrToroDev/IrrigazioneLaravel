@@ -47,12 +47,12 @@ class Utente extends Authenticatable
 
     public function orti(): HasMany
     {
-        return $this->hasMany(Orto::class, "IdOrto", "IdUtente");
+        return $this->hasMany(Orto::class, "IdUtente");
     }
 
     public function alerts(): HasMany
     {
-        return $this->hasMany(Alert::class, "IdAlert", "IdUtente");
+        return $this->hasMany(Alert::class, "IdUtente");
     }
 
     

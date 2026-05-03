@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RuoloUtente;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -21,6 +19,10 @@ class LoginController extends Controller
         
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+
+            if (Auth::user()->getRuolo() === RuoloUtente::Admin) {
+                // Handle admin user
+            }
         
             return redirect()->intended(route('dashboard'));
         }
