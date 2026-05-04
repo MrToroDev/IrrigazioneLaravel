@@ -13,50 +13,7 @@
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        .card {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .form-floating>.form-control:focus~label,
-        .form-floating>.form-control:not(:placeholder-shown)~label {
-            color: var(--bs-primary);
-            opacity: 0.8;
-        }
-
-        .form-control:focus {
-            border-color: var(--bs-primary);
-            box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-        }
-
-        #togglePassword {
-            color: var(--bs-gray-600);
-            border: none;
-            background: transparent;
-            padding: 0.5rem;
-        }
-
-        #togglePassword:hover {
-            color: var(--bs-primary);
-        }
-
-        #togglePassword:focus {
-            box-shadow: none;
-        }
-
-        .btn-primary {
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(var(--bs-primary-rgb), 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 </head>
 
 <body class="bg-light">
@@ -65,7 +22,7 @@
             <div class="row justify-content-center min-vh-100 align-items-center">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-lg border-0 rounded-lg">
-                        <div class="card-header bg-primary text-white text-center py-4 border-0 rounded-top">
+                        <div class="card-header stem-bg-color text-white text-center py-4 border-0 rounded-top">
                             <h3 class="mb-0 fw-bold">
                                 <i class="fas fa-sign-in-alt me-2"></i>Register
                             </h3>
@@ -153,7 +110,7 @@
 
                                 {{-- Pulsante Login --}}
                                 <div class="d-grid gap-2 mb-3">
-                                    <button type="submit" class="btn btn-primary btn-lg">
+                                    <button type="submit" class="btn stem-btn btn-lg">
                                         <i class="fas fa-sign-in-alt me-2"></i>Register
                                     </button>
                                 </div>

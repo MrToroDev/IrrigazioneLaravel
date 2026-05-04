@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateUtenteRequest extends FormRequest
+class StoreSensoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,10 @@ class UpdateUtenteRequest extends FormRequest
     {
         return [
             'Nome' => 'required|string',
-            'Cognome' => 'required|string',
-            'Email' => 'required|email',
-            'Pword' => ''
+            'Latitudine' => 'required',
+            'Longitudine' => 'required',
+            'TipoSensore' => 'required|string',
+            'IdOrto' => 'required'
         ];
     }
 }

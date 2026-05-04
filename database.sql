@@ -8,9 +8,11 @@ CREATE TABLE Utenti(
     IdUtente INT NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(40) NOT NULL,
     Cognome VARCHAR(40) NOT NULL,
-    Email VARCHAR(20) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
     Pword VARCHAR(255) NOT NULL,
     Ruolo ENUM('Admin', 'User') NOT NULL,
+
+    `enabled` BIT DEFAULT 1,
 
     updated_at DATETIME,
     created_at DATETIME,
@@ -22,8 +24,13 @@ DROP TABLE IF EXISTS Orti;
 CREATE TABLE IF NOT EXISTS Orti(
     IdOrto INT NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(500) NOT NULL,
-    PosizioneGPS VARCHAR(500) NOT NULL,
+    Latitudine FLOAT NOT NULL,
+    Longitudine FLOAT NOT NULL,
     Tipo ENUM('Garden', 'Greenhouse') NOT NULL,
+
+    updated_at DATETIME,
+    created_at DATETIME,
+    `deleted` BIT DEFAULT 0,
 
     IdUtente INT NOT NULL,
     PRIMARY KEY(IdOrto),
@@ -34,8 +41,13 @@ DROP TABLE IF EXISTS Sensori;
 CREATE TABLE IF NOT EXISTS Sensori(
     IdSensore INT NOT NULL AUTO_INCREMENT,
     TipoSensore ENUM('Temperature', 'Umitidy', 'UV', 'PH', 'Lux') NOT NULL,
-    PosizioneGPS VARCHAR(500) NOT NULL,
+    Latitudine FLOAT NOT NULL,
+    Longitudine FLOAT NOT NULL,
     Nome VARCHAR(200) NOT NULL,
+
+    updated_at DATETIME,
+    created_at DATETIME,
+    `deleted` BIT DEFAULT 0,
 
     IdOrto INT NOT NULL,
     PRIMARY KEY(IdSensore),
@@ -82,13 +94,13 @@ INSERT INTO Utenti (Nome, Cognome, Email, Pword, Ruolo) VALUES
 ('Mario', 'Rossi', 'mario@email.it', '$2y$12$r/Dq2H/k3exYzODQw3LXAOQpit4JxW/nBr67rbKXu4GiCZd9qjSqe', 'Admin'), -- pass123
 ('Luca', 'Bianchi', 'luca@email.it', '$2a$12$cx4suO65y4YYnmd5.Qe3A.AJz2fed2lqIcVRLhL3484Y1aswJa1G.', 'User'); -- pass456
 
-INSERT INTO Orti (Nome, PosizioneGPS, Tipo, IdUtente) VALUES
-('Orto Nord', '43.4631, 11.8796', 'Garden', 1),
-('Serra Sud', '43.4620, 11.8805', 'Greenhouse', 2);
+INSERT INTO Orti (Nome, Latitudine, Longitudine, Tipo, IdUtente) VALUES
+('Orto Nord', 43.4631, 11.8796, 'Garden', 1),
+('Serra Sud', 43.4620, 11.8805, 'Greenhouse', 2);
 
-INSERT INTO Sensori (Nome, TipoSensore, PosizioneGPS, IdOrto) VALUES
-('Temp1', 'Temperature', '43.4632, 11.8797', 1),
-('Umid1', 'Umidity', '43.4621, 11.8806', 2);
+INSERT INTO Sensori (Nome, TipoSensore, Latitudine, Longitudine, IdOrto) VALUES
+('Temp1', 'Temperature', 43.4632, 11.8797, 1),
+('Umid1', 'Umidity', 43.4621, 11.8806, 2);
 
 INSERT INTO Misurazioni (Valore, IdSensore) VALUES
 (25, 1),

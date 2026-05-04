@@ -4,15 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StoreUtenteRequest extends FormRequest
+class UpdateSensoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -23,7 +24,11 @@ class StoreUtenteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'Nome' => 'required|string',
+            'Latitudine' => 'required',
+            'Longitudine' => 'required',
+            'TipoSensore' => 'required|string',
+            'IdOrto' => 'required'
         ];
     }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUtenteRequest;
 use App\Http\Requests\UpdateUtenteRequest;
 use App\Models\Utente;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UtenteController extends Controller
 {
@@ -13,54 +16,50 @@ class UtenteController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUtenteRequest $request)
-    {
-        //
+        return view('user.settings.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Utente $utente)
+    public function showHelp()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Utente $utente)
-    {
-        //
+        return "404";
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUtenteRequest $request, Utente $utente)
+    public function update(UpdateUtenteRequest $request)
     {
-        //
+        $data = $request->validated();
+        $utente = Auth::user();
+        
+        if (is_null($data['Pword'])) {
+            $data['Pword'] = $utente->Pword;
+        }
+        else $data['Pword'] = Hash::make($data['Pword']);
+
+        $utente->updateOrFail($data);
+
+        return redirect()->back()->with("success", true);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Utente $utente)
+    public function delete()
     {
-        //
+        /**
+         * @var Utente
+         */
+        $utente = Auth::user();
+        $utente->updateOrFail(['enabled' => 0]);
+
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        
+        return redirect()->route("home");
     }
 }

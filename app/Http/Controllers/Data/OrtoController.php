@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrtoRequest;
 use App\Http\Requests\UpdateOrtoRequest;
 use App\Models\Orto;
+use App\Models\Utente;
 use Illuminate\Support\Facades\Auth;
 
 class OrtoController extends Controller
@@ -15,7 +16,13 @@ class OrtoController extends Controller
      */
     public function index()
     {
-        $orti = Auth::user()->orti()->get();
+        $orti = [];
+            
+        foreach (Auth::user()->orti()->get()->all() as $orto) {
+            if ($orto->deleted == 1) continue;
+
+            array_push($orti, $orto);
+        }
 
         return view("user.dashboard.garden.index", compact("orti"));
     }
@@ -33,15 +40,7 @@ class OrtoController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOrtoRequest $request)
-    {
-        //
+        return view("user.dashboard.garden.create");
     }
 
     /**
@@ -49,7 +48,21 @@ class OrtoController extends Controller
      */
     public function edit(Orto $orto)
     {
-        //
+        return view("user.dashboard.garden.edit", compact("orto"));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreOrtoRequest $request)
+    {
+        $data = $request->validated();
+
+        $orto = new Orto($data);
+        $orto->IdUtente = Auth::id();
+        $orto->saveOrFail();
+
+        return redirect()->route('dashboard.orto');
     }
 
     /**
@@ -57,14 +70,21 @@ class OrtoController extends Controller
      */
     public function update(UpdateOrtoRequest $request, Orto $orto)
     {
-        //
+        $data = $request->validated();
+
+        $orto->updateOrFail($data);
+
+        return redirect()->route('dashboard.orto.id', compact("orto"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Orto $orto)
+    public function delete(Orto $orto)
     {
-        //
+        $orto->deleted = 1;
+        $orto->saveOrFail();
+
+        return redirect()->route('dashboard.orto');
     }
 }

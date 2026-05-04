@@ -13,9 +13,16 @@
 
 <div class="container mt-4">
     <h2 class="mb-3">Gardens - <strong>{{ $orto->getNome() }}</strong></h2>
-    
     <br>
+    <form action="{{ route('dashboard.orto.delete', $orto) }}" method="post">
+    @csrf
+    @method('DELETE')
+    <button type="button" class="btn stem-btn" onclick="window.location.href = '{{ route('dashboard.orto.edit', $orto) }}'">Edit</button>
 
+    <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <br>
+    <br>
     <div class="container">
         <h3><strong>Position (Latitude/Longitude):</strong> {{ $orto->getPosizione() }}</h3>
         <h3><strong>Type of garden:</strong> {{ $orto->getTipo() }}</h3>

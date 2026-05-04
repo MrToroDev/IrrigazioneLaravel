@@ -5,25 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-enum TipoOrto: String {
-    case Garden = "Garden";
-    case Greenhouse = "Greenhouse";
-}
+use App\Models\Enums\TipoOrto;
 
 class Orto extends Model
 {
     protected $table = "Orti";
     protected $primaryKey = 'IdOrto';
 
-    protected $fillable = ["Nome", "PosizioneGPS", "Tipo"];
+    protected $fillable = ["Nome", "Latitudine", "Longitudine", "Tipo", "deleted"];
 
     public function getNome(): String {
         return $this->attributes["Nome"];
     }
 
     public function getPosizione(): String {
-        return $this->attributes["PosizioneGPS"];
+        return $this->attributes["Latitudine"] . "," . $this->attributes["Longitudine"];
+    }
+
+    public function getLatitudine(): Float {
+        return $this->attributes['Latitudine'];
+    }
+
+    public function getLongitudine(): Float {
+        return $this->attributes['Longitudine'];
     }
 
     public function getTipo(): TipoOrto {

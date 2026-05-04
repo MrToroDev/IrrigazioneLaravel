@@ -48,12 +48,12 @@
                     <hr class="my-3">
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ request()->routeIs('settings.index') ? 'active' : '' }}" href="{{ route('settings.index') }}">
                             <i class="bi bi-gear"></i> Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ request()->routeIs('user.help') ? 'active' : '' }}" href="{{ route('user.help') }}">
                             <i class="bi bi-question-circle"></i> Help
                         </a>
                     </li>
@@ -74,9 +74,9 @@
             </div>
             
             <!-- Area Contenuto Principale -->
-            <div class="col-md-9 col-lg-10 content-area " id="content-area">
+            <div class="col-md-9 col-lg-10 content-area" id="content-area">
                 @sectionMissing("content")
-                
+                <br>
                 <div class="text-center">
                     <i class="bi bi-arrow-left-circle" style="font-size: 3rem; color: #dee2e6;"></i>
                     <p class="text-muted">
@@ -96,5 +96,7 @@
     <!-- Bootstrap JS e Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    @yield("loadingFinished")
 </body>
 </html>

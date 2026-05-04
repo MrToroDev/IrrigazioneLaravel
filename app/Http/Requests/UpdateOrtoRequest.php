@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateOrtoRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdateOrtoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -23,7 +24,10 @@ class UpdateOrtoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'Nome' => 'required|string',
+            'Latitudine' => 'required',
+            'Longitudine' => 'required',
+            'Tipo' => 'required|string',
         ];
     }
 }

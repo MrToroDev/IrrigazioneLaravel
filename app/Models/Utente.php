@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-
-enum RuoloUtente: String {
-    case Admin = "Admin";
-    case Utente = "User";
-};
+use App\Models\Enums\RuoloUtente;
 
 class Utente extends Authenticatable
 {
@@ -18,9 +13,9 @@ class Utente extends Authenticatable
     protected $primaryKey = 'IdUtente';
     protected $authPasswordName = 'Pword';
 
-    protected $fillable = ["Nome", "Cognome", "Email", "Pword", "Ruolo"];
+    protected $fillable = ["Nome", "Cognome", "Email", "Pword", "Ruolo", "enabled"];
 
-    protected $hidden = ["Pword", "remember_token"];
+    protected $hidden = ["Pword", "enabled", "remember_token"];
 
     
 

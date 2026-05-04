@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RuoloUtente;
+use App\Models\Enums\RuoloUtente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +22,18 @@ class LoginController extends Controller
 
             if (Auth::user()->getRuolo() === RuoloUtente::Admin) {
                 // Handle admin user
+            }
+
+            // This user was disabled/deleted, therefore we can't use it!
+            if (Auth::user()->enabled == 0) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Invalid email',
+                    'password' => 'Invalid password',
+                ]);
             }
         
             return redirect()->intended(route('dashboard'));

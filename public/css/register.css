@@ -1,0 +1,60 @@
+a {
+    color: rgba(30, 59, 47, 0.92);
+}
+
+.card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+    color: rgba(30, 59, 47, 0.92);
+    opacity: 0.8;
+}
+
+.form-control:focus {
+    border-color: rgba(30, 59, 47, 0.92);
+    box-shadow: 0 0 0 0.25rem rgba(rgba(30, 59, 47, 0.92), 0.25);
+}
+
+#togglePassword {
+    color: var(--bs-gray-600);
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+}
+
+#togglePassword:hover {
+    color: rgba(30, 59, 47, 0.92);
+}
+
+#togglePassword:focus {
+    box-shadow: none;
+}
+
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(rgba(30, 59, 47, 0.92), 0.3);
+}
+
+.stem-bg-color {
+    background: rgba(30, 59, 47, 0.92);
+}
+
+.stem-btn {
+    background-color: rgba(30, 59, 47, 0.92);
+    color: white;
+}
+
+.stem-btn:hover {
+    background-color: rgba(36, 85, 64, 0.92);
+    color: white;
+}

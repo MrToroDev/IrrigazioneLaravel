@@ -5,24 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-enum TipoSensore: String
-{
-    case Temperature = "Temperature";
-    case Umidity = "Umidity";
-    case UV = "UV";
-    case Lux = "Lux";
-}
+use App\Models\Enums\TipoSensore;
 
 class Sensore extends Model
 {
     protected $table = "Sensori";
     protected $primaryKey = 'IdSensore';
 
-    protected $fillable = ["TipoSensore", "PosizioneGPS", "Nome"];
+    protected $fillable = ["TipoSensore", "Latitudine", "Longitudine", "Nome", "deleted", "IdOrto"];
 
     public function getPosizione(): String {
-        return $this->attributes["PosizioneGPS"];
+        return $this->attributes["Latitudine"] . "," . $this->attributes["Longitudine"];
+    }
+    
+    public function getLatitudine(): Float {
+        return $this->attributes['Latitudine'];
+    }
+
+    public function getLongitudine(): Float {
+        return $this->attributes['Longitudine'];
     }
 
     public function getTipo(): TipoSensore {

@@ -11,8 +11,21 @@
 
 
 <div class="container mt-4">
-    <h2 class="mb-3">Sensor <strong>{{ $sensore->getNome() }}</strong> of <strong><a class="stem-tx-color" href="{{ route('dashboard.orto.id', $sensore->orto()->get()->first()) }}">{{ $sensore->orto()->get()->first()->getNome() }}</a></strong></h2>
-    
+    <h2 class="mb-3">
+        Sensor <strong>{{ $sensore->getNome() }}</strong> 
+        @if ($sensore->orto()->get()->first()->deleted == 0)
+            of <strong><a class="stem-tx-color" href="{{ route('dashboard.orto.id', $sensore->orto()->get()->first()) }}">{{ $sensore->orto()->get()->first()->getNome() }}</a></strong>
+        @endif
+    </h2>
+    <br>
+    <form action="{{ route('dashboard.sensori.delete', $sensore) }}" method="post">
+    @csrf
+    @method('DELETE')
+    <button type="button" class="btn stem-btn" onclick="window.location.href = '{{ route('dashboard.sensori.edit', $sensore) }}'">Edit</button>
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <br>
     <br>
 
     <div class="container">

@@ -63,6 +63,21 @@ html, body {
     color: #0d6efd;
 }
 
+.stem-btn {
+    background-color: rgba(30, 59, 47, 0.92);
+    color: white;
+}
+
+.stem-btn:hover {
+    background-color: rgba(36, 85, 64, 0.92);
+    color: white;
+}
+
+.stem-btn-link {
+    text-decoration-line: none;
+    color: white;
+}
+
 .stem-bg-color {
     background: rgba(30, 59, 47, 0.92);
 }
