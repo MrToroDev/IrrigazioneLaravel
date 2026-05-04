@@ -34,4 +34,9 @@ class RegisterController extends Controller
 
         return redirect()->intended(route("dashboard"));
     }
+
+    public function show()
+    {
+        return view('register');
+    }
 }

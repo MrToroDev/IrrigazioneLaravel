@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 
+use App\Models\Utente;
+use App\Models\Sensore;
+use App\Models\Orto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,15 +16,25 @@ class SensoreController extends Controller
      */
     public function index()
     {
-        return view("user.dashboard.sensor");
+        $sensori = [];
+
+        /** @var Orto */
+        foreach (Auth::user()->orti()->get()->all() as $orto) {
+            /** @var Sensore */
+            foreach ($orto->sensori()->get()->all() as $sensore) {
+                array_push($sensori, $sensore);
+            }
+        }
+
+        return view("user.dashboard.sensor.index", compact("sensori"));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(int $sensore)
+    public function show(Sensore $sensore)
     {
-        //
+        return view("user.dashboard.sensor.show", compact("sensore"));
     }
 
     // /**

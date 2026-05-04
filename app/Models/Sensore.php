@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 enum TipoSensore: String
 {
-    case Temperatura = "Temperatura";
-    case Umidita = "Umidita";
+    case Temperature = "Temperature";
+    case Umidity = "Umidity";
     case UV = "UV";
+    case Lux = "Lux";
 }
 
 class Sensore extends Model
@@ -18,14 +19,18 @@ class Sensore extends Model
     protected $table = "Sensori";
     protected $primaryKey = 'IdSensore';
 
-    protected $fillable = ["TipoSensore", "PosizioneGPS"];
+    protected $fillable = ["TipoSensore", "PosizioneGPS", "Nome"];
 
     public function getPosizione(): String {
         return $this->attributes["PosizioneGPS"];
     }
 
     public function getTipo(): TipoSensore {
-        return TipoSensore::from($this->attributes["Tipo"]);
+        return TipoSensore::from($this->attributes["TipoSensore"]);
+    }
+
+    public function getNome(): String {
+        return $this->attributes['Nome'];
     }
 
     public function orto(): BelongsTo
@@ -35,6 +40,6 @@ class Sensore extends Model
 
     public function misurazioni(): HasMany
     {
-        return $this->hasMany(Misurazione::class, "IdMisurazione");
+        return $this->hasMany(Misurazione::class, "IdSensore");
     }
 }

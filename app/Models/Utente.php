@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 enum RuoloUtente: String {
     case Admin = "Admin";
-    case Utente = "Utente";
+    case Utente = "User";
 };
 
 class Utente extends Authenticatable

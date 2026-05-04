@@ -27,7 +27,8 @@ class AlertController extends Controller
      */
     public function destroy(Alert $alert)
     {
-        $alert->deleteOrFail();
+        $alert->Deleted = 1;
+        $alert->saveOrFail();
 
         return redirect()->back();
     }

@@ -17,7 +17,7 @@ class OrtoController extends Controller
     {
         $orti = Auth::user()->orti()->get();
 
-        return view("user.dashboard.garden", compact("orti"));
+        return view("user.dashboard.garden.index", compact("orti"));
     }
 
     /**
@@ -25,7 +25,7 @@ class OrtoController extends Controller
      */
     public function show(Orto $orto)
     {
-        return view("user.dashboard.garden.index", compact("orto"));
+        return view("user.dashboard.garden.show", compact("orto"));
     }
 
     /**

@@ -10,7 +10,7 @@ class Misurazione extends Model
     protected $table = "Misurazioni";
     protected $primaryKey = 'IdMisurazione';
 
-    protected $fillable = ["Valore", "DataOraMisurazione", "TipoDato"];
+    protected $fillable = ["Valore", "DataOraMisurazione"];
 
     public function getValore(): Float {
         return $this->attributes["Valore"];
@@ -22,6 +22,6 @@ class Misurazione extends Model
 
     public function sensore(): BelongsTo
     {
-        return $this->belongsTo(Orto::class, "IdSensore", "IdMisurazione");
+        return $this->belongsTo(Orto::class, "IdSensore");
     }
 }

@@ -10,7 +10,7 @@ CREATE TABLE Utenti(
     Cognome VARCHAR(40) NOT NULL,
     Email VARCHAR(20) NOT NULL,
     Pword VARCHAR(255) NOT NULL,
-    Ruolo ENUM('Admin', 'Utente') NOT NULL,
+    Ruolo ENUM('Admin', 'User') NOT NULL,
 
     updated_at DATETIME,
     created_at DATETIME,
@@ -33,8 +33,9 @@ CREATE TABLE IF NOT EXISTS Orti(
 DROP TABLE IF EXISTS Sensori;
 CREATE TABLE IF NOT EXISTS Sensori(
     IdSensore INT NOT NULL AUTO_INCREMENT,
-    TipoSensore ENUM('Temperatura', 'Umidita', 'UV', 'PH', 'Luce') NOT NULL,
+    TipoSensore ENUM('Temperature', 'Umitidy', 'UV', 'PH', 'Lux') NOT NULL,
     PosizioneGPS VARCHAR(500) NOT NULL,
+    Nome VARCHAR(200) NOT NULL,
 
     IdOrto INT NOT NULL,
     PRIMARY KEY(IdSensore),
@@ -70,6 +71,7 @@ CREATE TABLE IF NOT EXISTS Alert(
     Descrizione VARCHAR(500) NOT NULL,
     DataOraAlert TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Visualizzato DATETIME,
+    Deleted BIT DEFAULT 0,
 
     IdUtente INT NOT NULL,
     PRIMARY KEY(IdAlert),
@@ -78,15 +80,15 @@ CREATE TABLE IF NOT EXISTS Alert(
 
 INSERT INTO Utenti (Nome, Cognome, Email, Pword, Ruolo) VALUES
 ('Mario', 'Rossi', 'mario@email.it', '$2y$12$r/Dq2H/k3exYzODQw3LXAOQpit4JxW/nBr67rbKXu4GiCZd9qjSqe', 'Admin'), -- pass123
-('Luca', 'Bianchi', 'luca@email.it', '$2a$12$cx4suO65y4YYnmd5.Qe3A.AJz2fed2lqIcVRLhL3484Y1aswJa1G.', 'Utente'); -- pass456
+('Luca', 'Bianchi', 'luca@email.it', '$2a$12$cx4suO65y4YYnmd5.Qe3A.AJz2fed2lqIcVRLhL3484Y1aswJa1G.', 'User'); -- pass456
 
 INSERT INTO Orti (Nome, PosizioneGPS, Tipo, IdUtente) VALUES
 ('Orto Nord', '43.4631, 11.8796', 'Garden', 1),
 ('Serra Sud', '43.4620, 11.8805', 'Greenhouse', 2);
 
-INSERT INTO Sensori (TipoSensore, PosizioneGPS, IdOrto) VALUES
-('Temperatura', '43.4632, 11.8797', 1),
-('Umidita', '43.4621, 11.8806', 2);
+INSERT INTO Sensori (Nome, TipoSensore, PosizioneGPS, IdOrto) VALUES
+('Temp1', 'Temperature', '43.4632, 11.8797', 1),
+('Umid1', 'Umidity', '43.4621, 11.8806', 2);
 
 INSERT INTO Misurazioni (Valore, IdSensore) VALUES
 (25, 1),

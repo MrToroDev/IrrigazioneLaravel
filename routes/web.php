@@ -13,15 +13,11 @@ Route::get('/', function () {
     return view("home");
 })->name("home");
 
-Route::get('/register', function() {
-    return view('register');
-})->name("register");
-    
+Route::get('/register', [RegisterController::class, "show"])->name("register");
 Route::post('/register/verify', RegisterController::class)->name("register.verify"); 
 
 Route::middleware('guest')->group(function () {    
     Route::get('/login', [LoginController::class, 'show'])->name("login");
-
     Route::post('/login/verify', LoginController::class)->name("login.verify"); 
 });
 
@@ -34,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/dashboard/garden/{orto}', [OrtoController::class, 'show'])->name('dashboard.orto.id');
 
     Route::get('/user/dashboard/sensor', [SensoreController::class, 'index'])->name('dashboard.sensori');
+    Route::get('/user/dashboard/sensor/{sensore}', [SensoreController::class, 'show'])->name('dashboard.sensori.id');
     
     Route::get('/user/dashboard/alert', [AlertController::class, 'index'])->name('dashboard.alert');
     Route::put('/user/dashboard/alert/{alert}/update', [AlertController::class, 'update'])->name('dashboard.alert.update');

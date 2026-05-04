@@ -16,15 +16,19 @@
         <thead class="table-dark">
             <tr>
                 <th>*</th>
+                <th>*</th>
                 <th>Type</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Seen</th>
-                <th>*</th>
             </tr>
         </thead>
         <tbody class="text-center">
             @foreach ($alerts as $alert)
+                @if ($alert->isDeleted())
+                    @continue;
+                @endif
+
                 @if ($alert->getTipo() == TipoAlert::WARNING)
                 <tr class="table-warning">
                 @elseif ($alert->getTipo() == TipoAlert::DANGER)
@@ -46,20 +50,20 @@
                         <i class="bi bi-envelope-open"></i>
                         @endif
                     </td>
-                    
-                    <td>{{ $alert->getTipo() }}</td>
-                    <td><span class="alert_description">{{ $alert->getDescrizione() }}</span></td>
-                    <td>{{ $alert->getDataOra() }}</td>
-                    <td>{{ $alert->getDataVisualizzazione() }}</td>
                     <td>
                         <form action="{{ route('dashboard.alert.destroy', $alert) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">
+                            <button type="submit" @disabled($alert->getDataVisualizzazione() == "new")>
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
                     </td>
+
+                    <td>{{ $alert->getTipo() }}</td>
+                    <td><span class="alert_description">{{ $alert->getDescrizione() }}</span></td>
+                    <td>{{ $alert->getDataOra() }}</td>
+                    <td>{{ $alert->getDataVisualizzazione() }}</td>
                 </tr>
             @endforeach
         </tbody>

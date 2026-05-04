@@ -1,5 +1,5 @@
 @extends("user.dashboard")
-@use(App\Models\Orto)
+@use(App\Models\Sensore)
 
 @section("header")
 
@@ -12,7 +12,7 @@
 
 
 <div class="container mt-4">
-    <h2 class="mb-3">Gardens</h2>
+    <h2 class="mb-3">Sensors</h2>
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
@@ -20,18 +20,22 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Position</th>
+                <th>Garden</th>
             </tr>
         </thead>
         <tbody class="text-center">
-            @foreach ($orti as $orto)
+            @foreach ($sensori as $sensore)
 
                 <tr>
                     <td>
-                        <a href="{{ route("dashboard.orto.id", $orto) }}">Show</a>
+                        <a href="{{ route("dashboard.sensori.id", $sensore) }}">Show</a>
                     </td>
-                    <td>{{ $orto->getNome() }}</td>
-                    <td>{{ $orto->getTipo() }}</td>
-                    <td>{{ $orto->getPosizione() }}</td>
+                    <td>{{ $sensore->getNome() }}</td>
+                    <td>{{ $sensore->getTipo() }}</td>
+                    <td>{{ $sensore->getPosizione() }}</td>
+                    <td>
+                        <a href="{{ route("dashboard.orto.id", $sensore->orto()->get()->first()) }}">{{ $sensore->orto()->get()->first()->getNome() }}</a>
+                    </td>
                 </tr>
             
             @endforeach

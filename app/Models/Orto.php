@@ -37,6 +37,11 @@ class Orto extends Model
 
     public function sensori(): HasMany
     {
-        return $this->hasMany(Sensore::class, "IdSensore", "IdOrto");
+        return $this->hasMany(Sensore::class, "IdOrto");
+    }
+
+    public function irrigazioni(): HasMany
+    {
+        return $this->hasMany(Irrigazione::class, "IdOrto");
     }
 }

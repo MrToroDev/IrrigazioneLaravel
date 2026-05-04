@@ -10,11 +10,7 @@ class Irrigazione extends Model
     protected $table = "Irrigazioni";
     protected $primaryKey = 'IdIrrigazione';
 
-    protected $fillable = ["Durata", "LitriAcquaConsumata", "DataOraIrrigazione"];
-
-    public function getDurata(): Int {
-        return $this->attributes["Durata"];
-    }
+    protected $fillable = ["LitriAcquaConsumata", "DataOraIrrigazione"];
     
     public function getLitriConsumati(): Int {
         return $this->attributes["LitriAcquaConsumata"];
@@ -27,6 +23,6 @@ class Irrigazione extends Model
 
     public function orto(): BelongsTo
     {
-        return $this->belongsTo(Orto::class, "IdOrto", "IdSensore");
+        return $this->belongsTo(Orto::class, "IdOrto");
     }
 }

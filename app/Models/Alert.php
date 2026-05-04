@@ -19,7 +19,7 @@ class Alert extends Model
     protected $primaryKey = 'IdAlert';
     public $timestamps = false;
 
-    protected $fillable = ["Tipo", "Descrizione", "DataOraAlert", "Visualizzato"];
+    protected $fillable = ["Tipo", "Descrizione", "DataOraAlert", "Visualizzato", "Deleted"];
 
     public function getTipo(): TipoAlert {
         return TipoAlert::from($this->attributes["Tipo"]);
@@ -38,7 +38,11 @@ class Alert extends Model
     public function getDataVisualizzazione(): String {
         if (!isset($this->attributes["Visualizzato"])) return "new";
         
-        return Carbon::parse($this->attributes["Visualizzato"])->toDateTimeString();
+        return $this->attributes["Visualizzato"];
+    }
+
+    public function isDeleted(): bool {
+        return $this->attributes['Deleted'] == 1;
     }
 
     public function utente(): BelongsTo
